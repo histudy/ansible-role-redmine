@@ -1,0 +1,60 @@
+---
+ansible:
+  group_vars:
+    all:
+      redmine_send_reminders_cron_job:
+        enabled: yes
+        params:
+          - 'days=7'
+        hour: 9
+        minute: 0
+      redmine_receive_imap_cron_job:
+        enabled: yes
+        params:
+          - "username=imap_acount"
+          - "password=imap_password"
+        hour: "*"
+        minute: "*/5"
+      redmine_receive_pop3_cron_job:
+        enabled: yes
+        params:
+          - "username=pop3_acount"
+          - "password=pop3_password"
+        hour: "*"
+        minute: "*/5"
+      redmine_puma_cfg:
+        bind: "unix:///opt/redmine/tmp/redmine.sock"
+        # bind: "tcp://0.0.0.0:9292"
+        pidfile: "/opt/redmine/tmp/redmine.pid"
+        state_path: "/opt/redmine/tmp/redmine.state"
+        stdout_redirect:
+          stdout: "/opt/redmine/log/stdout.log"
+          stderr: "/opt/redmine/log/stderr.log"
+          append: yes
+        quiet: yes
+        threads:
+          min: 0
+          max: 16
+        workers: 2
+        prune_bundler: no
+        preload_app: yes
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+vagrant:
+  platforms:
+    - name: stretch
+      box: histudy/stretch
+  providers:
+    - name: virtualbox
+      type: virtualbox
+      options:
+        memory: 512
+        cpus: 1
+  instances:
+    - name: redmine
+      ansible_groups:
+        - molecule
+verifier:
+  name: serverspec
