@@ -1,5 +1,4 @@
 ---
-
 redmine_version: "3.4-stable"
 
 redmine_db_cfg:
@@ -121,6 +120,12 @@ redmine_plugins: []
   #   repo: "https://github.com/alexbevi/redmine_knowledgebase.git"
   # - name: easy_gantt
   #   url: "http://www.easyredmine.com/packages/EasyGanttFree.zip"
+  # - name: agile
+  #   file: path/to/redmine_agile-light.zip
+  # - name: checklists
+  #   file: path/to/redmine_checklists-light.zip
+  # - name: zenedit
+  #   file: path/to/redmine_zenedit-light.zip
 
 redmine_lang: ja
 

@@ -3,11 +3,6 @@ redmine
 
 [Redmine](http://www.redmine.org/)のインストールとセットアップを行います。
 
-Dependencies
-------------
-
-* [ruby](https://github.com/histudy/ansible-role-ruby)
-
 Role Variables
 --------------
 
@@ -77,7 +72,6 @@ redmine_themes:
     repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
   - name: farend_basic
     repo: "https://github.com/farend/redmine_theme_farend_basic.git"
-
 ```
 
 ### redmine_plugins
@@ -86,16 +80,30 @@ redmine_themes:
 
 ```yml
 redmine_plugins:
+  # リポジトリから取得
   - name: view_customize
     repo: "https://github.com/onozaty/redmine-view-customize.git"
+    # プラグインのディレクトリ名を指定
     directory: view_customize
   - name: issue_templates
     repo: "https://github.com/akiko-pusu/redmine_issue_templates.git"
+  - name: dashboard
+    repo: "https://github.com/jgraichen/redmine_dashboard.git"
+    # 取得するバージョンまたはブランチを指定(省略時はmasterブランチの内容を取得)
+    version: stable-v2
+  # URLから取得
+  - name: easy_gantt
+    url: "http://www.easyredmine.com/packages/EasyGanttFree.zip"
+  # ファイルをアップロード
+  - name: agile
+    file: path/to/redmine_agile-light.zip
+  - name: checklists
+    file: path/to/redmine_checklists-light.zip
 ```
 
 ### redmine_lang
 
-Redmineの言語設定を指定します。
+Redmineの初期登録データの言語を指定します。
 
 ```yml
 redmine_lang: ja
@@ -110,6 +118,8 @@ redmine_send_reminders_cron_job:
   enabled: no
   params:
     - 'days=7'
+    # - 'tracker=1'
+    # - 'users="1,23,45"'
   hour: 9
   minute: 0
 ```
@@ -126,6 +136,8 @@ redmine_receive_imap_cron_job:
     - "password=imap_password"
     # - host=127.0.0.1
     # - port=143
+    # - ssl=false
+    # - folder=INBOX
   # hour: "*"
   # minute: "*/5"
 ```
@@ -142,6 +154,7 @@ redmine_receive_pop3_cron_job:
     - "password=pop3_password"
     # - host=127.0.0.1
     # - port=110
+    # - ssl=false
   # hour: "*"
   # minute: "*/5"
 ```
@@ -175,7 +188,7 @@ Example Playbook
 ```yml
 - hosts: servers
   roles:
-     - { role: redmine}
+    - role: redmine
 ```
 
 License

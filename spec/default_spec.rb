@@ -16,15 +16,15 @@ describe file(property['redmine_home']) do
 end
 
 property['redmine_themes'].each do |theme|
-  dir_name = theme['directory'] || theme['name']
-  describe file(property['redmine_home'] + '/public/themes/' + dir_name) do
+  describe file(property['redmine_home'] + '/public/themes/' + theme['name']) do
     it { should exist }
     it { should be_directory }
   end
 end
 
 property['redmine_plugins'].each do |plugin|
-  dir_name = plugin['directory'] || 'redmine_' + theme['name']
+  dir_name = 'redmine_' + plugin['name']
+  dir_name = plugin['directory'] if plugin.key?('directory')
   describe file(property['redmine_home'] + '/plugins/' + dir_name) do
     it { should exist }
     it { should be_directory }

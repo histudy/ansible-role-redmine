@@ -2,6 +2,34 @@
 ansible:
   group_vars:
     all:
+      redmine_themes:
+        - name: farend_fancy
+          repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
+        - name: farend_basic
+          repo: "https://github.com/farend/redmine_theme_farend_basic.git"
+      redmine_plugins:
+        # Githubから取得
+        - name: view_customize
+          repo: "https://github.com/onozaty/redmine-view-customize.git"
+          directory: view_customize
+        - name: issue_templates
+          repo: "https://github.com/akiko-pusu/redmine_issue_templates.git"
+        - name: slack
+          repo: "https://github.com/sciyoshi/redmine-slack.git"
+        # URLから取得
+        - name: easy_gantt
+          url: "http://www.easyredmine.com/packages/EasyGanttFree.zip"
+          # 展開先ディレクトリ名(テスト用)
+          directory: easy_gantt
+        # ファイルのアップロード
+        - name: agile
+          file: ~/Downloads/redmine/redmine_agile-1_4_6-light.zip
+          # 展開先ディレクトリ名(テスト用)
+          directory: redmine_agile
+        - name: checklists
+          file: ~/Downloads/redmine/redmine_checklists-3_1_11-light.zip
+          # 展開先ディレクトリ名(テスト用)
+          directory: redmine_checklists
       redmine_send_reminders_cron_job:
         enabled: yes
         params:
@@ -24,7 +52,6 @@ ansible:
         minute: "*/5"
       redmine_puma_cfg:
         bind: "unix:///opt/redmine/tmp/redmine.sock"
-        # bind: "tcp://0.0.0.0:9292"
         pidfile: "/opt/redmine/tmp/redmine.pid"
         state_path: "/opt/redmine/tmp/redmine.state"
         stdout_redirect:
@@ -50,7 +77,7 @@ vagrant:
     - name: virtualbox
       type: virtualbox
       options:
-        memory: 512
+        memory: 1024
         cpus: 1
   instances:
     - name: redmine

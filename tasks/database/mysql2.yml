@@ -14,4 +14,8 @@
   mysql_user:
     name: "{{ redmine_db_cfg.production.username }}"
     password: "{{ redmine_db_cfg.production.password }}"
+    host: "{{ item }}"
     priv: "{{ redmine_db_cfg.production.database }}.*:ALL"
+  with_items:
+    - localhost
+    - 127.0.0.1

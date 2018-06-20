@@ -2,11 +2,11 @@
 Description=Redmine Unicorn Server
 {% if redmine_db_cfg.production.host is defined and redmine_db_cfg.production.host == 'localhost' -%}
 {% if redmine_db_cfg.production.adapter in 'mysql2'%}
-Wants=mariadb.service
-After=network.target mysqld.service
+Requires=mariadb.service
+After=network.target mariadb.service
 {% endif -%}
-{% if redmine_db_cfg.production.adapter == 'postgresql' -%}
-Wants=postgresql.service
+{% if redmine_db_cfg.production.adapter == 'postgresql' and redmine_db_cfg.production.host == 'localhost' -%}
+Requires=postgresql.service
 After=network.target postgresql.service
 {% endif -%}
 {% else -%}
