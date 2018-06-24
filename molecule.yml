@@ -16,7 +16,7 @@ ansible:
           label_news_plural: お知らせ
           label_news_latest: 最新のお知らせ
           label_news_view_all: すべてのお知らせを表示
-          label_news_added: お知らせを追加
+          label_news_added: お知らせの追加
           label_news_comment_added: お知らせへのコメント追加
           label_roadmap: マイルストーン
           field_is_in_roadmap: チケットをマイルストーンに表示する
