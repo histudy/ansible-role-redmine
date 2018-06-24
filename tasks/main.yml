@@ -68,6 +68,9 @@
       chdir: "{{ redmine_home }}"
     notify: restart redmine
     when: git_result is changed or db_config_result is changed
+  - name: customize language file
+    import_tasks: customize_lang.yml
+    when: redmine_customize_language is defined
   - name: load default data
     command: bundle exec rake redmine:load_default_data
     args:

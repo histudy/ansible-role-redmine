@@ -2,6 +2,47 @@
 ansible:
   group_vars:
     all:
+      redmine_customize_language:
+        ja:
+          setting_app_title: タイトル
+          project_module_documents: ドキュメント
+          project_module_news: お知らせ
+          label_document: ドキュメント
+          label_document_new: 新しいドキュメント
+          label_document_plural: ドキュメント
+          label_document_added: ドキュメントの追加
+          label_news: お知らせ
+          label_news_new: お知らせを追加
+          label_news_plural: お知らせ
+          label_news_latest: 最新のお知らせ
+          label_news_view_all: すべてのお知らせを表示
+          label_news_added: お知らせの追加
+          label_news_comment_added: お知らせへのコメント追加
+          label_roadmap: マイルストーン
+          field_is_in_roadmap: チケットをマイルストーンに表示する
+          enumeration_doc_categories: ドキュメントカテゴリ
+          permission_add_documents: ドキュメントの追加
+          permission_edit_documents: ドキュメントの編集
+          permission_delete_documents: ドキュメントの削除
+          permission_view_documents: ドキュメントの閲覧
+          permission_view_news: お知らせの閲覧
+          permission_manage_news: お知らせの管理
+          permission_comment_news: お知らせへのコメント
+          default_doc_category_user: ユーザーマニュアル
+          default_doc_category_tech: 仕様書
+          default_tracker_feature: 機能追加
+          default_tracker_support: 保守
+          default_issue_status_new: 未対応
+          default_issue_status_in_progress: 対応中
+          default_issue_status_resolved: 対応済み
+          default_issue_status_feedback: 差し戻し
+          default_issue_status_closed: 完了
+          default_issue_status_rejected: 却下
+          default_priority_low: 低い
+          default_priority_normal: 普通
+          default_priority_high: 高い
+          default_priority_urgent: 緊急
+          default_priority_immediate: 至急
       redmine_themes:
         - name: farend_fancy
           repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
