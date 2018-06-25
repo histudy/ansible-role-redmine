@@ -19,6 +19,14 @@ ansible:
           label_news_added: お知らせの追加
           label_news_comment_added: お知らせへのコメント追加
           label_roadmap: マイルストーン
+          label_in_less_than: n日後、以前
+          label_in_more_than: n日後、以降
+          label_in: n日後
+          label_less_than_ago: n日前、以降
+          label_more_than_ago: n日前、以前
+          label_ago: n日前
+          label_in_the_next_days: 今後n日以内
+          label_in_the_past_days: 過去n日以内
           field_is_in_roadmap: チケットをマイルストーンに表示する
           enumeration_doc_categories: ドキュメントカテゴリ
           permission_add_documents: ドキュメントの追加
