@@ -18,3 +18,5 @@
   command: git update-index --assume-unchanged config/locales/{{ redmine_lang }}.yml
   args:
     chdir: "{{ redmine_home }}"
+  tags:
+    - skip_ansible_lint
