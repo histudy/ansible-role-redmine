@@ -12,6 +12,7 @@
     owner: "{{ redmine_user }}"
     group: "{{ redmine_user }}"
     state: directory
+    mode: "0755"
 - name: setup database(MySQL/Postgresql)
   include_tasks: "database/{{ redmine_db_cfg.production.adapter }}.yml"
   when:
@@ -31,10 +32,12 @@
     file:
       path: "{{ redmine_home }}/.bundle"
       state: directory
+      mode: "0755"
   - name: copy bundler setting file
     copy:
       src: config
       dest: "{{ redmine_home }}/.bundle/config"
+      mode: "0644"
   - name: set redmine database config variable
     set_fact:
       redmine_db_cfg:
@@ -44,11 +47,13 @@
     template:
       src: database.yml.j2
       dest: "{{ redmine_home }}/config/database.yml"
+      mode: "0644"
     register: db_config_result
   - name: create Redmine config file
     template:
       src: configuration.yml.j2
       dest: "{{ redmine_home }}/config/configuration.yml"
+      mode: "0644"
     notify: restart redmine
   - name: execute bundle update
     command: bundle update
@@ -67,9 +72,6 @@
       chdir: "{{ redmine_home }}"
     notify: restart redmine
     when: git_result is changed or db_config_result is changed
-  - name: customize language file
-    import_tasks: customize_lang.yml
-    when: redmine_customize_language is defined
   - name: load default data
     command: bundle exec rake redmine:load_default_data
     args:
@@ -96,9 +98,10 @@
     with_items: "{{ redmine_plugins|selectattr('url', 'defined')|list }}"
   - name: unarchive downloaded plugin archive file
     unarchive:
-      src: "{{ redmine_home }}/tmp/{{ item.url|basename }}"
+      src: "{{ redmine_home }}/tmp/{{ item.url | basename }}"
       dest: "{{ redmine_plugin_dir }}"
-      remote_src: yes
+      remote_src: true
+      mode: "0644"
     with_items: "{{ redmine_plugins|selectattr('url', 'defined')|list }}"
     notify: restart redmine
     register: plugin_install_from_url_result
@@ -106,6 +109,7 @@
     unarchive:
       src: "{{ item.file }}"
       dest: "{{ redmine_plugin_dir }}"
+      mode: "0644"
     with_items: "{{ redmine_plugins|selectattr('file', 'defined')|list }}"
     notify: restart redmine
     register: plugin_install_from_file_result
@@ -116,7 +120,7 @@
       - "{{ redmine_plugins|selectattr('required_packages', 'defined')|list }}"
       - required_packages
     notify: restart redmine
-    become: yes
+    become: true
     become_user: root
   - block:
       - name: execute bundle install
@@ -136,6 +140,7 @@
     template:
       src: settings.rb.j2
       dest: "{{ redmine_home }}/tmp/settings.rb"
+      mode: "0644"
     register: result
   - name: update redmine settings
     shell: "bundle exec rails console <{{ redmine_home }}/tmp/settings.rb"
@@ -149,8 +154,9 @@
     template:
       src: puma.rb.j2
       dest: "{{ redmine_home }}/config/puma.rb"
+      mode: "0644"
     notify: restart redmine
-  become: yes
+  become: true
   become_user: "{{ redmine_user }}"
   environment:
     RAILS_ENV: "{{ redmine_mode }}"
@@ -172,11 +178,12 @@
   template:
     src: redmine.service.j2
     dest: /lib/systemd/system/redmine.service
+    mode: "0644"
   notify: restart redmine
   register: result
 - name: Redmine is active and enable on system startup
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
     name: redmine
     state: started
-    enabled: yes
+    enabled: true
