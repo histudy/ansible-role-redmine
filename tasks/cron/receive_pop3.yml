@@ -1,4 +1,3 @@
----
 - name: set/unset receive pop3 job
   cron:
     name: Redmine receive pop3 job

@@ -6,14 +6,15 @@
       - postgresql-client
       - libpq-dev
 - name: create database user
-  become: yes
+  become: true
   become_user: postgres
   postgresql_user:
     name: "{{ redmine_db_cfg.production.username }}"
     password: "{{ redmine_db_cfg.production.password }}"
     role_attr_flags: CREATEDB,NOSUPERUSER
+  no_log: true
 - name: create database
-  become: yes
+  become: true
   become_user: postgres
   postgresql_db:
     name: "{{ redmine_db_cfg.production.database }}"
