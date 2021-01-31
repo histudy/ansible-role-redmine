@@ -2,31 +2,36 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: ${DRIVER_NAME:-docker}
 platforms:
-  ## https://hub.docker.com/u/geerlingguy
-  - name: stretch
-    groups:
-      - family_debian
-    children:
-      - debian
-    image: "geerlingguy/docker-debian9-ansible:latest"
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: true
   - name: buster
     groups:
       - family_debian
     children:
       - debian
+    # driver:docker
     image: "geerlingguy/docker-debian10-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
+    # driver:vagrant
+    box: wate/debian-10
+  - name: stretch
+    groups:
+      - family_debian
+    children:
+      - debian
+    # driver:docker
+    image: "geerlingguy/docker-debian9-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    # driver:vagrant
+    box: wate/debian-9
 lint: |
   set -e
   yamllint .
