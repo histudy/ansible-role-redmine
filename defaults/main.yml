@@ -107,10 +107,21 @@ redmine_plugins: []
   # - name: view_customize
   #   repo: "https://github.com/onozaty/redmine-view-customize.git"
   #   directory: view_customize
+  # - name: message_customize
+  #   repo: "https://github.com/ishikawa999/redmine_message_customize.git"
+  #   post_install_action: |
+  #     ln -sf {{ redmine_home }}/plugins/redmine_message_customize/35_change_load_order_locales.rb {{ redmine_home }}/config/initializers/35_change_load_order_locales.rb
   # - name: issue_templates
   #   repo: "https://github.com/akiko-pusu/redmine_issue_templates.git"
+  # - name: vividtone_my_page_blocks
+  #   repo: "https://github.com/vividtone/redmine_vividtone_my_page_blocks.git"
+  # - name: wiki_page_tree
+  #   repo: "https://github.com/ledsun/redmine_wiki_page_tree.git"
   # - name: slack
-  #   repo: "https://github.com/sciyoshi/redmine-slack.git"
+  #   repo: "https://github.com/cat-in-136/redmine-slack.git"
+  #   version: evolved
+  # - name: drawio
+  #   repo: "https://github.com/mikitex70/redmine_drawio.git"
   # - name: chatwork
   #   repo: "https://github.com/wate/redmine_chatwork.git"
   # - name: easy_gantt
@@ -124,13 +135,6 @@ redmine_plugins: []
   #   directory: plantuml
   #   required_packages:
   #     - plantuml
-  # - name: periodic_task
-  #   repo: "https://github.com/wate/redmine_periodic_task.git"
-  #   directory: periodictask
-  #   cron:
-  #     command: bundle exec rake redmine:check_periodictasks
-  #     minute: 0
-  #     hour: 1
 
 redmine_lang: ja
 
