@@ -5,7 +5,7 @@
   cron:
     name: Redmine send reminders job
     job: cd {{ redmine_home }} && bundle exec rake redmine:send_reminders {{ redmine_reminder_param }}
-    hour: "{{ redmine_send_reminders_cron_job.hour|default('*') }}"
-    minute: "{{ redmine_send_reminders_cron_job.minute|default('*') }}"
+    hour: "{{ redmine_send_reminders_cron_job.hour | default('*') | string }}"
+    minute: "{{ redmine_send_reminders_cron_job.minute | default('*') | string }}"
     user: "{{ redmine_user }}"
     state: "{{ 'present' if redmine_send_reminders_cron_job.enabled else 'absent' }}"
